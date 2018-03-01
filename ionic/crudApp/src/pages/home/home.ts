@@ -7,6 +7,7 @@ import { NavController,
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { AngularFireAuth} from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { Observable } from '@firebase/util';
 
 @Component({
   selector: 'page-home',
@@ -14,6 +15,7 @@ import * as firebase from 'firebase/app';
 })
 export class HomePage {
 
+  currentUser:any;
   songsRef:any;
   songs: AngularFireList<any>;
   
@@ -26,6 +28,15 @@ export class HomePage {
   ) {
     this.songsRef = afDatabase.list('songs');
     this.songs = this.songsRef.valueChanges();
+
+    afAuth.authState.subscribe(user => {
+      if (!user) {
+        this.currentUser = null;
+        return;
+      }
+      this.currentUser = {uid:user.uid, photoURL: user.photoURL};
+      
+    });
   }
 
   addSong(){
@@ -53,7 +64,8 @@ export class HomePage {
    
             newSongRef.set({
               id: newSongRef.key,
-              title: data.title
+              title: data.title,
+              uid: this.currentUser.uid
             });
           }
         }
@@ -115,7 +127,7 @@ export class HomePage {
           text: 'Save',
           handler: data => {
             this.songsRef.update(songId, {
-              title: data.title
+              title: data.title, lastUpdatedBy: this.currentUser.uid
             });
           }
         }
@@ -125,13 +137,18 @@ export class HomePage {
   }
 
   login() {
-    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then((xx)=>{
-      console.log('resultado login google:', xx.user.displayName, xx.user.uid);
+    this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
+    .then((response)=>{
+      console.log('resultado login google:', response);
       
       const userRef = this.afDatabase.list('users');
 
-      userRef.update(xx.user.uid, {userId: xx.user.uid, displayName: xx.user.displayName});
-
+      userRef.update(response.user.uid, 
+        {
+          userId: response.user.uid, 
+          displayName: response.user.displayName,
+          photoURL: response.user.photoURL
+        });
       //userRef.push({userId: xx.user.uid, displayName: xx.user.displayName}).then((xx)=>{
 
       //});
