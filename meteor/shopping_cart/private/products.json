@@ -1,0 +1,38 @@
+[{
+  "id": 1,
+  "title": "JavaScript: The Good Parts",
+  "price": 24.54,
+  "inventory": 2,
+  "department": "books"
+}, {
+  "id": 2,
+  "title": "Secrets of the JavaScript Ninja",
+  "price": 49.24,
+  "inventory": 10,
+  "department": "books"
+}, {
+  "id": 3,
+  "title": "Mastering JavaScript Design Patterns - Second Edition",
+  "price": 51.68,
+  "inventory": 5,
+  "department": "books"
+}, {
+
+  "id": 4,
+  "title": "Hardwired…To Self-Destruct (Deluxe)",
+  "price": 15.97,
+  "inventory": 45,
+  "department": "music"
+}, {
+  "id": 5,
+  "title": "Nevermind (Vinyl)",
+  "price": 30.00,
+  "inventory": 100,
+  "department": "music"
+}, {
+  "id": 6,
+  "title": "Appetite for Destruction (Vinyl)",
+  "price": 28.97,
+  "inventory": 20,
+  "department": "music"
+}]
