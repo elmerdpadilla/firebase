@@ -1,24 +1,27 @@
 import React from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import {ProductsCollection} from '../../shared/collections/ProductsCollection';
-import {CartCollection} from '../../shared/collections/CartCollection';
-import Product from  '../components/ProductComponent';
+import { ProductsCollection } from '../../shared/collections/ProductsCollection';
+import { CartCollection } from '../../shared/collections/CartCollection';
+import Product from '../components/ProductComponent';
+import { addToCart } from '../api';
 
 class Books extends React.Component {
-   constructor(props) {
-   super(props);
-   this.onAddToCart = this.onAddToCart.bind(this);
- }
- onAddToCart(product){
-   debugger;
-  CartCollection.insert({
-      'title' : product.title,
-      'price' : product.price,
-      'inventory' : product.inventory,
+  constructor(props) {
+    super(props);
+    this.onAddToCart = this.onAddToCart.bind(this);
+  }
+  onAddToCart(product) {
+    /*debugger;
+    CartCollection.insert({
+      'title': product.title,
+      'price': product.price,
+      'inventory': product.inventory,
       'quantity': 1
-   });
-  alert(product.title + ' added to your cart')
- }
+    });*/
+    addToCart(product);
+    alert(product.title + ' added to your cart')
+  }
+
   render() {
     const { products } = this.props
     return (
@@ -39,6 +42,6 @@ class Books extends React.Component {
 }
 export default createContainer(() => {
   return {
-     products: ProductsCollection.find({department: 'books'}).fetch()
+    products: ProductsCollection.find({ department: 'books' }).fetch()
   };
 }, Books);

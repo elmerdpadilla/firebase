@@ -3,6 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { ProductsCollection } from '../../shared/collections/ProductsCollection';
 import Product from '../components/ProductComponent';
 import { CartCollection } from '../../shared/collections/CartCollection';
+import { addToCart } from '../api';
 
 class Music extends React.Component {
   constructor(props) {
@@ -10,12 +11,13 @@ class Music extends React.Component {
     this.onAddToCart = this.onAddToCart.bind(this);
   }
   onAddToCart(product) {
-    CartCollection.insert({
+    /*CartCollection.insert({
       'title': product.title,
       'price': product.price,
       'inventory': product.inventory,
       'quantity': 1
-    });
+    });*/
+    addToCart(product);
     alert(product.title + ' added to your cart')
   }
   render() {

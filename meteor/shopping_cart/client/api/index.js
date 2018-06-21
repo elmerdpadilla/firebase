@@ -1,6 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 
 export const addToCart = (product) => {
+  console.log('aaa', product);
   Meteor.call('cartInsert', product);
 };
 

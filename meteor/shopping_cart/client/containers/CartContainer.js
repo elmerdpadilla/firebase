@@ -28,8 +28,11 @@ class Cart extends React.Component {
   }*/
 
 
-  onRemoveItem(product, event) {
+  /*onRemoveItem(product, event) {
     CartCollection.remove({ _id: product._id });
+  }*/
+  onRemoveItem(product) {
+    removeFromCart(product._id);
   }
 
   componentDidMount() {
@@ -76,9 +79,9 @@ class Cart extends React.Component {
               inventory={product.inventory}
               quantity={product.quantity}
               key={`inventory_${product._id}`}
-              
+
               _id={product._id} />
-              {/* onChangeQuanity={(event) => this.onChangeQuanity(product._id, event)}*/}
+            {/* onChangeQuanity={(event) => this.onChangeQuanity(product._id, event)}*/}
           </div>
         )}
         <span>
